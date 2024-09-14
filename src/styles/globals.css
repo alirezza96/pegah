@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer utilities {
+  .text-ltr {
+    direction: ltr;
+    text-align: left;
+  }
+}
