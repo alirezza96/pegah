@@ -33,7 +33,6 @@ export default function Banners() {
                 alt={banners[currentBannerIndex].alt}
                 className="object-cover aspect-[16/9] -z-20"
             />
-            <div className="bg-[#000] absolute inset-0 opacity-40 -z-10"></div>
         </div>
     );
 }
