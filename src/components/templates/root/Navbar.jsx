@@ -3,7 +3,7 @@ import db from "@/db.json"
 
 export default function Navbar() {
     return (
-        <nav className="bg-secondary ">
+        <nav className="bg-secondary/60 backdrop-blur-lg">
             <div className="container py-2">
                 <ul className="flex gap-4 font-secondary font-bold">
                     {
