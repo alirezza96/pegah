@@ -7,7 +7,7 @@ export const NavLink = ({ href, children }) => {
     return (
         <Link
             href={href}
-            className={`rounded-xl px-2 ${pathname === href ? "bg-theme" : ""}`}
+            className={`rounded-xl px-2 ${pathname === href ? "bg-theme text-text font-bold" : ""}`}
         >
             {children}
         </Link>

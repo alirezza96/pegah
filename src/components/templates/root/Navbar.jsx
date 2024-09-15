@@ -3,9 +3,9 @@ import db from "@/db.json"
 
 export default function Navbar() {
     return (
-        <nav className="bg-secondary/60 backdrop-blur-lg">
+        <nav className="bg-text text-primary">
             <div className="container py-2">
-                <ul className="flex gap-4 font-secondary font-bold">
+                <ul className="flex gap-4 font-secondary">
                     {
                         db.links?.map(link => (
                             <li key={link.id}>

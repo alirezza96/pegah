@@ -23,7 +23,7 @@ module.exports = {
       }
     },
     colors: {
-      "primary": "#FAF3E0",          // Light Ivory
+      "primary": "#FFF",          // white
       "secondary": "#ADD8E6",        // Light Blue
       "theme": "#FFFEF3",       // Cream
       "text": "#004080",             // Dark Blue
