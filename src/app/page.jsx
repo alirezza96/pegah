@@ -1,7 +1,14 @@
-import Banners from "@/components/templates/home/Banners";
+import { SkeletonLanding } from "@/components/modules/Skeletons";
+import Landing from "@/components/templates/home/Landing";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
-    <Banners />
+    <>
+      <Suspense fallback={"loading..."}>
+        <Landing />
+      </Suspense>
+      <SkeletonLanding />
+    </>
   );
 }
