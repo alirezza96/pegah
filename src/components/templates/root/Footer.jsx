@@ -1,9 +1,9 @@
 export default function Footer() {
     return (
-        <footer className="bg-info/60 backdrop-blur-lg py-2 ">
-            <div className="container text-ltr capitalize">
+        <footer className="p-2">
+            <p className="inline-flex px-2 rounded-xl bg-secondary/60 backdrop-blur-lg text-ltr capitalize">
                 created by alireza ghanbari with 💟
-            </div>
+            </p>
         </footer>
     )
 }

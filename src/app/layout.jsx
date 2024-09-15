@@ -30,11 +30,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl" >
       <body
-        className={`${primaryFont.variable} ${secondaryFont.variable} font-primary bg-theme flex flex-col min-h-svh justify-between antialiased`}
+        className={`${primaryFont.variable} ${secondaryFont.variable}
+        font-primary  flex flex-col min-h-svh justify-between antialiased
+        bg-theme`}
       >
-        <Header />
+        {/* <Header /> */}
         <Navbar />
-        <main className="flex-grow">
+        <main className="flex-grow my-4">
           {children}
         </main>
         <Footer />
