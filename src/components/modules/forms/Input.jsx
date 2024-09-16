@@ -1,4 +1,4 @@
-export default function Input(rest) {
+export default function Input({ className, ...rest }) {
     return (
         <>
             <label
@@ -9,9 +9,9 @@ export default function Input(rest) {
             </label>
             <br />
             <input
-    
+
                 {...rest}
-                className="text-ltr p-1 my-1 rounded-md  focus:outline-secondary"
+                className={`text-ltr p-1 my-1 rounded-md  focus:outline-secondary ${className}`}
             />
         </>
     )

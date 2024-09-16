@@ -12,7 +12,7 @@ const loginSchema = z.object({
         .min(1, "رمز عبور خود را وارد کنید")
 
 })
-export const login = (formData) => {
+export const login = (prevState, formData) => {
     const data = {
         username: formData.get("username"),
         password: formData.get("password")
@@ -23,7 +23,10 @@ export const login = (formData) => {
     if (!validationResult.success) {
         return {
             message: "لطفا مواردی که مشخص شده را تکمیل کنید",
+            status: "error",
             errors: validationResult.error.flatten().fieldErrors,
+            username: data.username,
+            password: data.password
         }
     }
     // 2. Prepare data for insertion into database

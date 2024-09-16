@@ -1,6 +1,5 @@
 import cover from "/public/login/login.png"
 import Image from "next/image"
-import styled from "@/styles/box-shadow.module.css"
 import Link from "next/link"
 import { HomeIcon } from "@heroicons/react/24/outline"
 import LoginForm from "@/components/templates/login/LoginForm"
@@ -11,7 +10,7 @@ export default function page() {
                 <HomeIcon className="w-6" />
                 خانه
             </Link>
-            <div className={`${styled.box_shadow} flex items-center`}>
+            <div className="flex items-center bg-secondary py-4 px-8 rounded-2xl border border-secondary shadow-customize">
                 <LoginForm />
                 <Cover />
             </div>

@@ -1,37 +1,55 @@
 "use client"
 import Input from "@/components/modules/forms/Input"
 import Submit from "@/components/modules/forms/Submit"
+import Notification from "@/components/modules/Notification"
 import { login } from "@/utils/auth/actions"
-import { useFormState } from "react"
+import { useActionState } from "react"
 export default function LoginForm() {
-    const initialState = { message: null, errors: null }
-    const [formState, formAction] = useFormState(
+    const initialState = { message: null, status: null, errors: null, username: null, password: null }
+    const [formState, formAction, isPending] = useActionState(
         login,
         initialState
     )
+    console.log("formState =>", formState)
     return (
-        <form action={login}>
+        <form action={formAction} className="min-w-80">
             <Input
                 type="text"
                 label="نام کاربری"
                 id="username"
                 name="username"
+                defaultValue={formState?.username}
                 placeholder="username@domain"
                 autoComplete={true}
                 autoFocus={true}
+                className="w-full"
 
             />
-            <br />
+            {formState?.errors &&
+                formState.errors?.username.map(item => <Notification key={item} title={item} status={formState.status} />)
+            }
+
             <Input
                 type="password"
                 label="رمز عبور"
                 id="password"
                 name="password"
+                defaultValue={formState?.password}
                 placeholder="password"
+                className="w-full"
+
             />
-            <br />
+            {
+                formState?.errors &&
+                < Notification title={formState.errors?.password} status={formState.status} />
+            }
+            {
+                formState?.message &&
+                <Notification title={formState.message} status={formState.status} />
+            }
             <Submit
                 value="ادامه"
+                disabled={isPending}
             />
         </form>
     )
