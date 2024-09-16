@@ -3,6 +3,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { HomeIcon } from "@heroicons/react/24/outline"
 import LoginForm from "@/components/templates/login/LoginForm"
+export const metadata = {
+    title: "ورود"
+}
 export default function page() {
     return (
         <div className=" min-h-dvh flex flex-col gap-4 items-center justify-end sm:justify-center p-4">
