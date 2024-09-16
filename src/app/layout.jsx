@@ -1,8 +1,6 @@
 import "@/styles/globals.css";
 import { Almarai, El_Messiri } from "next/font/google"
-import Header from "@/components/templates/root/Header";
-import Navbar from "@/components/templates/root/Navbar";
-import Footer from "@/components/templates/root/Footer";
+
 
 const primaryFont = Almarai({
   subsets: ["arabic"],
@@ -31,15 +29,9 @@ export default function RootLayout({ children }) {
     <html lang="fa" dir="rtl" >
       <body
         className={`${primaryFont.variable} ${secondaryFont.variable}
-        font-primary  flex flex-col min-h-svh justify-between antialiased
-        bg-theme`}
+        font-primary antialiased   bg-theme`}
       >
-        {/* <Header /> */}
-        <Navbar />
-        <main className="flex-grow my-4">
-          {children}
-        </main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

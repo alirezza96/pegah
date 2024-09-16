@@ -8,4 +8,8 @@
     direction: ltr;
     text-align: left;
   }
+
+  .glass-box {
+    @apply ring bg-primary/30 backdrop-blur-sm ring-text/5 p-4 rounded-3xl shadow-lg
+  }
 }

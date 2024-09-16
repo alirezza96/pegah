@@ -1,25 +1,15 @@
 import Banners from "./Banners";
 import Menus from "./Menus";
+import db from "@/db.json"
 
 
 
-const links = [
-    { id: 1, title: "اتوماسیون اداری", alt: "automation", src: "/banners/automation.png", href: "https://poa.irandairy.ir", icon: "ComputerDesktopIcon" },
-    { id: 2, title: "سامانه هوش تجاری", alt: "bi", src: "/banners/bi.png", href: "#", icon: "PresentationChartLineIcon" },
-    { id: 3, title: "شماره های داخلی", alt: "contact-us", src: "/banners/contact-us.png", href: "https://irandairy.ir/a1.html", icon: "PhoneArrowUpRightIcon" },
-    { id: 4, title: "ایمیل سازمانی", alt: "mail", src: "/banners/mail.png", href: "#", icon: "PaperAirplaneIcon" },
-    { id: 5, title: "فروشگاه", alt: "market", src: "/banners/market.png", href: "https://pegah.ir/", icon: "ShoppingCartIcon" },
-    { id: 6, title: "سایت سیاست گذاری", alt: "terms", src: "/banners/terms.png", href: "https://bi2.irandairy.ir/", icon: "BookOpenIcon" },
-    { id: 7, title: "سایت گردش کار", alt: "time-clock", src: "/banners/time-clock.png", href: "http://personal.pspegah.ir:8091/", icon: "ClockIcon" },
-];
 
 export default function Links() {
-
-
     return (
         <div className="container text-text flex flex-col sm:flex-row-reverse  gap-4">
-            <Banners links={links} />
-            <Menus links={links} />
+            <Banners banners={db.banners} />
+            <Menus banners={db.banners} />
         </div>
 
     );

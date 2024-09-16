@@ -1,9 +1,9 @@
 import Link from "next/link";
 import * as Icons from '@heroicons/react/24/outline'
-export default function Menus ({links}){
+export default function Menus ({banners}){
     return (
         <ul className="mt-4 text-sm flex sm:flex-col flex-wrap justify-evenly gap-4 text-center">
-        {links?.map(item => {
+        {banners?.map(item => {
             const Icon = Icons[item.icon]
             return (
                 <li key={item.id}
