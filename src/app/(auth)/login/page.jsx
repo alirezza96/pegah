@@ -1,8 +1,8 @@
-import cover from "/public/login/login.png"
-import Image from "next/image"
+
 import Link from "next/link"
 import { HomeIcon } from "@heroicons/react/24/outline"
 import LoginForm from "@/components/templates/login/LoginForm"
+import Cover from "@/components/templates/login/Cover"
 export const metadata = {
     title: "ورود"
 }
@@ -20,13 +20,3 @@ export default function page() {
         </div>
     )
 }
-
-const Cover = () => (
-    <Image
-        src={cover}
-        height={947}
-        width={368}
-        alt="login pic"
-        className="aspect-square object-contain hidden md:block"
-    />
-)

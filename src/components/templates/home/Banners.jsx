@@ -5,6 +5,7 @@ import Link from "next/link";
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline'
 export default function Banners({ banners }) {
     const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
+    const [loaded, setLoaded] = useState(false)
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCurrentBannerIndex((prevIndex) =>
@@ -37,7 +38,8 @@ export default function Banners({ banners }) {
                 width={368}
                 height={368}
                 alt={banners[currentBannerIndex].alt}
-                className="object-contain aspect-square"
+                onLoad={() => setLoaded(true)}
+                className={`object-contain aspect-square ${loaded ? "blur-none" : "blur-sm"}`}
             />
         </div>
     )
