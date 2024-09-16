@@ -1,15 +1,15 @@
 "use server"
 import z from "zod"
+import authenticate from "../ad"
 const loginSchema = z.object({
     username: z.
         string()
         .trim()
-        .min(8, "بیشتر از 8 حرف باشد")
-        .regex(/^[a-zA-Z0-9._%+-]+@bgr(-sh(\.local)?)?$/, "نام کاربری نامعتبر است.")
+        .email("نام کاربری معتبر نیست.")
     , password: z
         .string()
         .trim()
-        .min(1, "رمز عبور خود را وارد کنید")
+        .min(4, "رمز عبور خود را وارد کنید.")
 
 })
 export const login = (prevState, formData) => {
@@ -29,7 +29,9 @@ export const login = (prevState, formData) => {
             password: data.password
         }
     }
+
     // 2. Prepare data for insertion into database
+    const { username, password } = validationResult.data
 
     // console.log("data =>", data)
     // console.log("validationResult =>", validationResult)

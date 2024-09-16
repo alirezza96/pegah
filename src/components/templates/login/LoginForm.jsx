@@ -14,19 +14,20 @@ export default function LoginForm() {
     return (
         <form action={formAction} className="min-w-80">
             <Input
-                type="text"
+                type="email"
                 label="نام کاربری"
                 id="username"
                 name="username"
                 defaultValue={formState?.username}
-                placeholder="username@domain"
+                placeholder="username@domain.com"
                 autoComplete={true}
                 autoFocus={true}
                 className="w-full"
 
             />
-            {formState?.errors &&
-                formState.errors?.username.map(item => <Notification key={item} title={item} status={formState.status} />)
+            {
+                formState?.errors &&
+                < Notification title={formState.errors?.username} status={formState.status} />
             }
 
             <Input

@@ -11,7 +11,7 @@ export default function Input({ className, ...rest }) {
             <input
 
                 {...rest}
-                className={`text-ltr p-1 my-1 rounded-md  focus:outline-secondary ${className}`}
+                className={`text-ltr p-1 my-1 rounded-md placeholder-border  focus:outline-text ${className}`}
             />
         </>
     )
