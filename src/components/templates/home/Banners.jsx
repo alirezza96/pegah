@@ -18,14 +18,14 @@ export default function Banners({ banners }) {
         <div className=" relative flex-1  flex flex-col-reverse sm:flex-row gap-2 justify-center items-center sm:items-end   sm:ring sm:shadow-lg   ring-text/5 p-4 rounded-3xl ">
             <div className="absolute right-4 bottom-4 space-y-2 glass-box">
                 <Link
-                    className=" inline-flex text-3xl md:text-4xl lg:text-5xl -semibold "
+                    className=" inline-flex text-3xl md:text-4xl lg:text-5xl font-semibold "
                     href={banners[currentBannerIndex].href}
                 >
                     {banners[currentBannerIndex].title}
                 </Link>
                 <br />
                 <Link
-                    className="inline-flex bg-text text-primary px-8 py-1 rounded-xl float-left"
+                    className="inline-flex bg-text text-primary px-8 py-1 rounded-xl"
                     href={banners[currentBannerIndex].href}
                 >
                     کلیک کنید

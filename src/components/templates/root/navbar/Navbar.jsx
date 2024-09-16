@@ -8,7 +8,7 @@ export default function Navbar() {
     return (
         <nav className="bg-text text-primary leading-10 font-secondary">
             <div className="container flex justify-between">
-                <ul className="flex gap-4 ">
+                <ul className="flex gap-2 sm:gap-4 ">
                     {
                         db.navbar?.map(item => (
                             <li key={item.id}>
