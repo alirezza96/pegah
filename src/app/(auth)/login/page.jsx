@@ -1,7 +1,7 @@
 
 import Link from "next/link"
 import { HomeIcon } from "@heroicons/react/24/outline"
-import LoginForm from "@/components/templates/login/LoginForm"
+import Form from "@/components/templates/login/Form"
 import Cover from "@/components/templates/login/Cover"
 export const metadata = {
     title: "ورود"
@@ -14,7 +14,7 @@ export default function page() {
                 خانه
             </Link>
             <div className="flex items-center bg-secondary py-4 px-8 rounded-2xl border border-secondary shadow-customize">
-                <LoginForm />
+                <Form />
                 <Cover />
             </div>
         </div>

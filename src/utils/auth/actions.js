@@ -1,6 +1,6 @@
 "use server"
 import z from "zod"
-import authenticate from "../ad"
+import { authenticate, findUser, searchUser } from "./ad"
 const loginSchema = z.object({
     username: z.
         string()
@@ -9,10 +9,10 @@ const loginSchema = z.object({
     , password: z
         .string()
         .trim()
-        .min(4, "رمز عبور خود را وارد کنید.")
+        .min(4, "رمز عبور بیشتر از 4 حرف")
 
 })
-export const login = (prevState, formData) => {
+export const login = async (prevState, formData) => {
     const data = {
         username: formData.get("username"),
         password: formData.get("password")
@@ -32,7 +32,33 @@ export const login = (prevState, formData) => {
 
     // 2. Prepare data for insertion into database
     const { username, password } = validationResult.data
+    try {
+        // const res = await authenticate(username, password)
+        // const user = await findUser("aghanbari")
+        const user = await searchUser("aghanbari")
+        console.log("user =>", user)
+        return {
+            message: "کد تایید به شماره 091259***25 ارسال شد"
+            , status: "success"
+            , isVerified: true
+        }
 
-    // console.log("data =>", data)
-    // console.log("validationResult =>", validationResult)
+    } catch (err) {
+        console.log("err =>", err)
+        return {
+            message: "نام کاربری یا رمز عبور اشتباه است.",
+            status: "error",
+            username,
+            password
+        }
+    }
+
+
+
+
+}
+
+
+export const verifyOTP = () => {
+    console.log("action fired")
 }
