@@ -1,9 +1,10 @@
 import "@/styles/globals.css";
-import { Almarai, El_Messiri } from "next/font/google"
+import { Almarai, El_Messiri, } from "next/font/google"
 
 
 const primaryFont = Almarai({
   subsets: ["arabic"],
+
   weight: ["400", "700"],
   display: "swap",
   variable: "--font-primary",

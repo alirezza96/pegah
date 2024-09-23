@@ -1,4 +1,5 @@
-import ActiveDirectory from "activedirectory2";
+import ActiveDirectory from 'activedirectory2';
+import { resolve } from 'styled-jsx/css';
 
 const config = {
     url: process.env.AD_URL,
@@ -9,52 +10,43 @@ const config = {
 
 const ad = new ActiveDirectory(config);
 
-export function authenticate(username, password) {
+export async function authenticate(username, password) {
     return new Promise((resolve, reject) => {
         ad.authenticate(username, password, (err, auth) => {
             if (err) {
-                reject(`Error during authentication: ${err}`);
-            }
-            if (auth) {
-                resolve("Authenticated successfully");
+                reject({
+                    success: false,
+                    errorCode: err.code,
+                    errorMessage: err.message,
+                    errorDescription: "authentication failed. check username or password"
+                });
+            } else if (auth) {
+                resolve({ success: true });
             } else {
-                reject("Authentication failed");
+                console.log("else")
+                resolve({ success: false });
             }
         });
     });
 }
 
-export const findUser = (username) => {
-    return new Promise((resolve, reject) => {
-        ad.findUser(username, (err, user) => {
-            if (err) {
-                reject(`Error during find user: ${err}`);
-            }
-            if (!user) {
-                reject("User not found");
-            } else {
-                resolve(user); // Returning user object directly
-            }
-        });
-    });
-}
 
-export const searchUser = (username) => {
-    const searchOptions = {
-        filter: `(&(objectClass=user)(sAMAccountName=${username}))`, // تغییر بر اساس نیاز
-        attributes: ['dn', 'cn', 'mail'] // تنظیمات دیگر بر اساس نیاز
-    };
-
+export async function findUser(username) {
     return new Promise((resolve, reject) => {
-        ad.findUsers(searchOptions, (err, users) => {
+        ad.findUser({ attributes: ['telephoneNumber', 'sAMAccountName', 'mail', 'cn'] },username, (err, user) => {
             if (err) {
-                reject(`Error during search: ${err}`);
+                reject({
+                    success: false,
+                    errorDescription: "user not found"
+                })
             }
-            if (!users || users.length === 0) {
-                reject("User not found");
-            } else {
-                resolve(users);
+            else if (user) {
+                resolve(user)
             }
-        });
-    });
+            else {
+                resolve(false)
+            }
+        })
+
+    })
 }

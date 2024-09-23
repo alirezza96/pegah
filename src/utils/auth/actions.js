@@ -1,6 +1,7 @@
 "use server"
 import z from "zod"
-import { authenticate, findUser, searchUser } from "./ad"
+import { authenticate, findUser } from "./ad"
+import MaskPhoneNumber from "../MaskPhoneNumber"
 const loginSchema = z.object({
     username: z.
         string()
@@ -14,7 +15,7 @@ const loginSchema = z.object({
 })
 export const login = async (prevState, formData) => {
     const data = {
-        username: formData.get("username"),
+        username: formData.get("email"),
         password: formData.get("password")
     }
     // 1. Validate form fields
@@ -32,27 +33,44 @@ export const login = async (prevState, formData) => {
 
     // 2. Prepare data for insertion into database
     const { username, password } = validationResult.data
+    console.log(1)
     try {
-        // const res = await authenticate(username, password)
-        // const user = await findUser("aghanbari")
-        const user = await searchUser("aghanbari")
-        console.log("user =>", user)
-        return {
-            message: "کد تایید به شماره 091259***25 ارسال شد"
-            , status: "success"
-            , isVerified: true
-        }
 
-    } catch (err) {
-        console.log("err =>", err)
+        const isAuthenticated = await authenticate(username, password)
+        if (!isAuthenticated) {
+            return {
+                status: "error",
+                username,
+                password,
+                message: "نام کاربری یا رمز عبور اشتباه است"
+            }
+        }
+        // find user to send otp
+        const user = await findUser(username)
+        if (!user.telephoneNumber) {
+            return {
+                username,
+                password,
+                status: "error",
+                message: "تلفن همراه یافت نشد. به مدیر سیستم تماس بگیرید"
+            }
+        }
+        
         return {
-            message: "نام کاربری یا رمز عبور اشتباه است.",
-            status: "error",
+            isVerified: true,
+            status: "success",
+            message: `کد تایید به شماره ${MaskPhoneNumber(user.telephoneNumber)} ارسال شد`
+        }
+    } catch (err) {
+        console.log("catch error =>", err)
+        return {
             username,
-            password
+            password,
+            status: "error",
+            message: "نام کاربری یا رمز عبور اشتباه است"
         }
     }
-
+    console.log(2)
 
 
 

@@ -2,6 +2,7 @@
 import Input from "@/components/modules/forms/Input"
 import Submit from "@/components/modules/forms/Submit"
 import Notification from "@/components/modules/Notification"
+import Timer from "@/components/modules/Timer"
 import { login, verifyOTP } from "@/utils/auth/actions"
 import { useActionState, useRef } from "react"
 export default function Form() {
@@ -40,7 +41,7 @@ const Login = ({ formState, formAction, isPending }) => {
                 type="email"
                 label="نام کاربری"
                 id="username"
-                name="username"
+                name="email"
                 defaultValue={formState?.username}
                 placeholder="username@domain.com"
                 autoFocus={true}
@@ -87,7 +88,6 @@ const Otp = ({ formState, formAction, isPending }) => {
             inputRefs.current[index + 1].focus()
         }
     }
-    console.log("formaction =>", formAction)
     return (
         <>
             <button>
@@ -124,7 +124,7 @@ const Otp = ({ formState, formAction, isPending }) => {
                     formState?.errors &&
                     < Notification title={formState.errors?.password} status={formState.status} />
                 }
-
+                <Timer seconds={1200} title="مانده تا دریافت مجدد کد" />
                 <Submit
                     value="ادامه"
                     disabled={isPending}
