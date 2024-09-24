@@ -33,7 +33,7 @@ export async function authenticate(username, password) {
 
 export async function findUser(username) {
     return new Promise((resolve, reject) => {
-        ad.findUser({ attributes: ['telephoneNumber', 'sAMAccountName', 'mail', 'cn'] },username, (err, user) => {
+        ad.findUser({ attributes: ['telephoneNumber', 'userPrincipalName', 'cn'] },username, (err, user) => {
             if (err) {
                 reject({
                     success: false,

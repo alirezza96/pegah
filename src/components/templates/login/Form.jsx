@@ -5,6 +5,7 @@ import Notification from "@/components/modules/Notification"
 import Timer from "@/components/modules/Timer"
 import { login, verifyOTP } from "@/utils/auth/actions"
 import { useActionState, useRef } from "react"
+
 export default function Form() {
     const initialState = {
         message: null,
@@ -16,27 +17,37 @@ export default function Form() {
         phoneNumber: null,
         otp: null
     }
+
     const [formState, formAction, isPending] = useActionState(
         login,
         initialState
     )
+    const [otpState, otpAction, otpPending] = useActionState(
+        verifyOTP,
+        { status: null, message: null }
+    )
+
     return (
         <div className="w-80">
-            {
-                !formState?.isVerified ?
-                    <Login formState={formState} formAction={formAction} isPending={isPending} />
-                    :
-                    <Otp formState={formState} />
-            }
+            {!formState?.isVerified ? (
+                <Login
+                    formState={formState}
+                    formAction={formAction}
+                    isPending={isPending} />
+            ) : (
+                <Otp
+                    formState={formState}
+                    otpState={otpState}
+                    otpAction={otpAction}
+                    otpPending={otpPending} />
+            )}
         </div>
     )
 }
 
 const Login = ({ formState, formAction, isPending }) => {
     return (
-        <form
-            action={formAction}
-        >
+        <form action={formAction}>
             <Input
                 type="email"
                 label="نام کاربری"
@@ -46,12 +57,10 @@ const Login = ({ formState, formAction, isPending }) => {
                 placeholder="username@domain.com"
                 autoFocus={true}
                 className="w-full"
-
             />
-            {
-                formState?.errors &&
-                < Notification title={formState.errors?.username} status={formState.status} />
-            }
+            {formState?.errors?.username && (
+                <Notification title={formState.errors.username} status={formState.status} />
+            )}
 
             <Input
                 type="password"
@@ -62,25 +71,20 @@ const Login = ({ formState, formAction, isPending }) => {
                 placeholder="password"
                 className="w-full"
                 minLength="4"
+            />
+            {formState?.errors?.password && (
+                <Notification title={formState.errors.password} status={formState.status} />
+            )}
 
-            />
-            {
-                formState?.errors &&
-                < Notification title={formState.errors?.password} status={formState.status} />
-            }
-            <Submit
-                value="ادامه"
-                disabled={isPending}
-            />
-            {
-                formState?.message &&
+            <Submit value="ادامه" disabled={isPending} />
+            {formState?.message && (
                 <Notification title={formState.message} status={formState.status} />
-            }
+            )}
         </form>
     )
 }
 
-const Otp = ({ formState, formAction, isPending }) => {
+const Otp = ({ formState, otpState, otpAction, otpPending }) => {
     const inputRefs = useRef([])
     const moveToNext = (e, index) => {
         const value = e.target.value
@@ -90,47 +94,39 @@ const Otp = ({ formState, formAction, isPending }) => {
     }
     return (
         <>
-            <button>
-                بازگشت
-            </button>
-            <form
-                action={formAction}
-            >
-                {
-                    formState?.message &&
+            <button>بازگشت</button>
+            <form action={otpAction}>
+                {formState?.message && (
                     <Notification title={formState.message} status={formState.status} />
-                }
+                )}
+
+
                 <div className="flex flex-row-reverse gap-1 justify-center my-1">
-
-                    {
-                        [...Array(5)].map((_, index) => (
-                            <input
-                                key={index}
-                                type="text"
-                                min="0"
-                                max="9"
-                                maxLength="1"
-                                inputMode="numeric"
-                                required
-                                autoFocus={index === 0}
-                                className="w-8 h-8 text-center  p-1 rounded-md   focus:outline-text"
-                                onInput={(e) => moveToNext(e, index)}
-                                ref={(el) => (inputRefs.current[index] = el)}
-                            />
-                        ))
-                    }
+                    {[...Array(5)].map((_, index) => (
+                        <input
+                            key={index}
+                            name={`otp${index + 1}`}
+                            type="text"
+                            min="0"
+                            max="9"
+                            maxLength="1"
+                            inputMode="numeric"
+                            required
+                            autoFocus={index === 0}
+                            autoComplete="false"
+                            className="w-8 h-8 text-center p-1 rounded-md focus:outline-text"
+                            onInput={(e) => moveToNext(e, index)}
+                            ref={(el) => (inputRefs.current[index] = el)}
+                        />
+                    ))}
+                    <input type="hidden" name="phoneNumber" value={formState?.phoneNumber} />
                 </div>
-                {
-                    formState?.errors &&
-                    < Notification title={formState.errors?.password} status={formState.status} />
-                }
+
                 <Timer seconds={1200} title="مانده تا دریافت مجدد کد" />
-                <Submit
-                    value="ادامه"
-                    disabled={isPending}
-                />
-
-
+                {otpState?.message && (
+                    <Notification title={otpState.message} status={otpState.status} />
+                )}
+                <Submit value="ادامه" disabled={otpPending} />
             </form>
         </>
     )
