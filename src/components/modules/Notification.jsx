@@ -6,10 +6,8 @@ export default function Notification({ title, status }) {
         , warning: "bg-warning/40"
     }
     return (
-        <div className="text-center">
-            <p className={` rounded-3xl px-3 text-sm font-bold mt-1 inline-flex  ${statuses[status]}`}>
+            <p className={` rounded-3xl px-3 text-sm font-bold mt-1 ${statuses[status]}`}>
                 {title}
             </p>
-        </div>
     )
 }
