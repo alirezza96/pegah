@@ -1,10 +1,10 @@
 import { sql } from "@vercel/postgres";
 
-export const insertOtp = async (phoneNumber, code) => {
+export const insertOtp = async (username, code) => {
     try {
         const data = await sql`
-            INSERT INTO otp(code, phone_number)
-            VALUES(${code}, ${phoneNumber})
+            INSERT INTO otp(code, username)
+            VALUES(${code}, ${username})
         `
         return data
     } catch (error) {
@@ -13,14 +13,15 @@ export const insertOtp = async (phoneNumber, code) => {
     }
 }
 
-export const findOtp = async (phoneNumber) => {
+export const findOtp = async (username) => {
     try {
         const data = await sql`
-        SELECT max(expired_date) as expired_date, phone_number, code 
-            from public.otp 
-            where phone_number=${phoneNumber}
-            group by phone_number , code 
-            having max(expired_date) > now()
+          SELECT code
+            FROM otp
+            WHERE username = ${username}
+            AND expired_date > NOW()
+            ORDER BY release_date DESC
+            LIMIT 1;
         `
         return data.rows[0]
     } catch (error) {

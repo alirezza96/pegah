@@ -14,11 +14,24 @@ export async function authenticate(username, password) {
     return new Promise((resolve, reject) => {
         ad.authenticate(username, password, (err, auth) => {
             if (err) {
+                if (err.errno === -4039) {
+                    reject({
+                        success: false,
+                        errorCode: err.code,
+                        errorMessage: "ارتباط با سرور برقرار نیست."
+                    })
+                }
+                if (err.code === 49) {
+                    reject({
+                        success: false,
+                        errorCode: err.code,
+                        errorMessage: "نام کاربری یا رمز عبور اشتباه است"
+                    })
+                }
                 reject({
                     success: false,
                     errorCode: err.code,
                     errorMessage: err.message,
-                    errorDescription: "authentication failed. check username or password"
                 });
             } else if (auth) {
                 resolve({ success: true });
@@ -33,7 +46,7 @@ export async function authenticate(username, password) {
 
 export async function findUser(username) {
     return new Promise((resolve, reject) => {
-        ad.findUser({ attributes: ['telephoneNumber', 'userPrincipalName', 'cn'] },username, (err, user) => {
+        ad.findUser({ attributes: ['telephoneNumber', 'userPrincipalName', 'cn'] }, username, (err, user) => {
             if (err) {
                 reject({
                     success: false,

@@ -6,7 +6,7 @@ async function seedOtp(params) {
     await client.sql`
     CREATE TABLE otp (
         code CHAR(5),
-        phone_number CHAR(11),
+        username text,
         release_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         expired_date TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL '2 minutes')
     )

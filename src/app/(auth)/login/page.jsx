@@ -6,7 +6,7 @@ import Cover from "@/components/templates/login/Cover"
 export const metadata = {
     title: "ورود"
 }
-export default function page() {
+export default  function page() {
     return (
         <div className=" min-h-dvh flex flex-col gap-4 items-center justify-end sm:justify-center p-4">
             <Link href="/" className="text-text">

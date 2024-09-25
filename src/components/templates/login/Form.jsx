@@ -94,7 +94,6 @@ const Otp = ({ formState, otpState, otpAction, otpPending }) => {
     }
     return (
         <>
-            <button>بازگشت</button>
             <form action={otpAction}>
                 {formState?.message && (
                     <Notification title={formState.message} status={formState.status} />
@@ -119,7 +118,7 @@ const Otp = ({ formState, otpState, otpAction, otpPending }) => {
                             ref={(el) => (inputRefs.current[index] = el)}
                         />
                     ))}
-                    <input type="hidden" name="phoneNumber" value={formState?.phoneNumber} />
+                    <input type="hidden" name="username" value={formState?.username} />
                 </div>
 
                 <Timer seconds={1200} title="مانده تا دریافت مجدد کد" />
