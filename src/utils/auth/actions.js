@@ -114,6 +114,7 @@ export const verifyOTP = async (prevState, formData) => {
     const user = await findUser(username)
     createSession(user)
     redirect("/")
+
 }
 
 // OTP sending function (example)

@@ -2,7 +2,7 @@ import Link from "next/link";
 import * as Icons from '@heroicons/react/24/outline'
 export default function Menus({ banners }) {
     return (
-        <ul className="text-sm flex sm:flex-col flex-wrap  gap-6 text-center">
+        <ul className="text-sm grid grid-cols-4 sm:grid-cols-1 gap-6 text-center">
             {banners?.map(item => {
                 const Icon = Icons[item.icon]
                 return (

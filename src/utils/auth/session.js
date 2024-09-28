@@ -2,6 +2,7 @@
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { encrypt, decrypt } from "../lib"
+import { revalidatePath } from "next/cache"
 
 const cookie = {
     name: "session",
@@ -24,6 +25,7 @@ const setCookie = (session) => {
 export const createSession = async (data) => {
     const session = await encrypt({ ...data });
     setCookie(session)
+
 };
 
 
@@ -42,7 +44,7 @@ export const updateSession = async () => {
 
 export const deleteSession = () => {
     cookies().delete(cookie.name)
-    redirect("/login")
+    revalidatePath("/")
 }
 
 export const getPayload = async () => {
