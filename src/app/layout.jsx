@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import { Almarai, El_Messiri, } from "next/font/google"
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const primaryFont = Almarai({
   subsets: ["arabic"],
@@ -41,6 +41,7 @@ export default function RootLayout({ children }) {
         font-primary antialiased   bg-theme`}
       >
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );

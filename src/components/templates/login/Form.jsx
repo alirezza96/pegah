@@ -47,7 +47,7 @@ export default function Form() {
 
 const Login = ({ formState, formAction, isPending }) => {
     return (
-        <form action={formAction}>
+        <form action={formAction} className="[&>*]:bg-red">
             <Input
                 type="email"
                 label="نام کاربری"
