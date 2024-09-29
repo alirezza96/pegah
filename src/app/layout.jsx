@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import { Almarai, El_Messiri, } from "next/font/google"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-
+import { Analytics } from '@vercel/analytics/react';
 const primaryFont = Almarai({
   subsets: ["arabic"],
 
@@ -42,6 +42,7 @@ export default function RootLayout({ children }) {
       >
         {children}
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
